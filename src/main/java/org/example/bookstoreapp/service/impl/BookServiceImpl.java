@@ -40,4 +40,9 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDto(savedBook);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
+
 }
