@@ -6,8 +6,6 @@ import org.example.bookstoreapp.dto.CreateBookRequestDto;
 
 public interface BookService {
 
-    BookDto save(CreateBookRequestDto createBookRequestDto);
-
     List<BookDto> findAll();
 
     BookDto findById(Long id);
