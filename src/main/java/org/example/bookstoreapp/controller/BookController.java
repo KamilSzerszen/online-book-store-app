@@ -2,6 +2,8 @@ package org.example.bookstoreapp.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.BookDto;
 import org.example.bookstoreapp.dto.BookSearchParametersDto;
@@ -37,7 +39,7 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDto createBook(@RequestBody CreateBookRequestDto createBookRequestDto) {
+    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto createBookRequestDto) {
         return bookService.createBook(createBookRequestDto);
     }
 
