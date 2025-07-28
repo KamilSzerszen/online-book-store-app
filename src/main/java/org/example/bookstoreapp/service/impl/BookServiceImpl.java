@@ -7,7 +7,7 @@ import org.example.bookstoreapp.dto.CreateBookRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.BookMapper;
 import org.example.bookstoreapp.model.Book;
-import org.example.bookstoreapp.repository.BookRepository;
+import org.example.bookstoreapp.repository.book.BookRepository;
 import org.example.bookstoreapp.service.BookService;
 import org.springframework.stereotype.Service;
 
