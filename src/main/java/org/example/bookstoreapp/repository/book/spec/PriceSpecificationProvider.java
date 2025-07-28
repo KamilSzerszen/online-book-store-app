@@ -1,24 +1,24 @@
 package org.example.bookstoreapp.repository.book.spec;
 
-import org.example.bookstoreapp.dto.PriceParams;
+import jakarta.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.List;
+import org.example.bookstoreapp.dto.BookSearchParametersDto;
 import org.example.bookstoreapp.model.Book;
 import org.example.bookstoreapp.repository.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
-
-import java.util.ArrayList;
-import java.util.List;
-import jakarta.persistence.criteria.Predicate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PriceSpecificationProvider implements SpecificationProvider<Book, PriceParams> {
+public class PriceSpecificationProvider
+        implements SpecificationProvider<Book, BookSearchParametersDto> {
 
     @Override
     public String getKey() {
         return "price";
     }
 
-    public Specification<Book> getSpecification(PriceParams params) {
+    public Specification<Book> getSpecification(BookSearchParametersDto params) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

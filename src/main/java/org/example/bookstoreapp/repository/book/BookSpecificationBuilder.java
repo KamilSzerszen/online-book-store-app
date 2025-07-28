@@ -2,7 +2,6 @@ package org.example.bookstoreapp.repository.book;
 
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.BookSearchParametersDto;
-import org.example.bookstoreapp.dto.PriceParams;
 import org.example.bookstoreapp.model.Book;
 import org.example.bookstoreapp.repository.SpecificationBuilder;
 import org.example.bookstoreapp.repository.SpecificationProvider;
@@ -39,16 +38,18 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
 
             spec = spec.and(isbnProvider.getSpecification(searchParameters.isbn()));
         }
-        if (searchParameters.priceParams().minPrice() != null
-                && searchParameters.priceParams().maxPrice() != null) {
+
+        if (searchParameters.minPrice() != null || searchParameters.maxPrice() != null) {
 
             @SuppressWarnings("unchecked")
-            SpecificationProvider<Book, PriceParams> priceProvider =
-                    (SpecificationProvider<Book, PriceParams>) bookSpecificationProviderManager
+            SpecificationProvider<Book, BookSearchParametersDto> priceProvider =
+                    (SpecificationProvider<Book, BookSearchParametersDto>)
+                            bookSpecificationProviderManager
                             .getSpecificationProvider("price");
 
-            spec = spec.and(priceProvider.getSpecification(searchParameters.priceParams()));
+            spec = spec.and(priceProvider.getSpecification(searchParameters));
         }
+
         if (searchParameters.title() != null && searchParameters.title().length > 0) {
 
             @SuppressWarnings("unchecked")
