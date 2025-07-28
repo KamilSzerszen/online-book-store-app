@@ -3,12 +3,15 @@ package org.example.bookstoreapp.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.BookDto;
+import org.example.bookstoreapp.dto.BookSearchParametersDto;
 import org.example.bookstoreapp.dto.CreateBookRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.BookMapper;
 import org.example.bookstoreapp.model.Book;
 import org.example.bookstoreapp.repository.book.BookRepository;
+import org.example.bookstoreapp.repository.book.BookSpecificationBuilder;
 import org.example.bookstoreapp.service.BookService;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -17,6 +20,7 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
     public List<BookDto> findAll() {
@@ -57,6 +61,15 @@ public class BookServiceImpl implements BookService {
         bookBeforeUpdate.setCoverImage(createBookRequestDto.getCoverImage());
         Book savedBook = bookRepository.save(bookBeforeUpdate);
         return bookMapper.toDto(savedBook);
+    }
+
+    @Override
+    public List<BookDto> search(BookSearchParametersDto params) {
+        Specification<Book> bookSpecification = bookSpecificationBuilder.build(params);
+        return bookRepository.findAll(bookSpecification)
+                .stream()
+                .map(bookMapper::toDto)
+                .toList();
     }
 
 }
