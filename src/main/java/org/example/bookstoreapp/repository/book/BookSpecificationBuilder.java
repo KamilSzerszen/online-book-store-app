@@ -18,6 +18,8 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
     @Override
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
 
+        Specification<Book> spec =
+                (root, query, cb) -> cb.conjunction();
 
         if (searchParameters.author() != null && searchParameters.author().length > 0) {
 
