@@ -13,6 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class PriceSpecificationProvider implements SpecificationProvider<Book, PriceParams> {
 
+    @Override
+    public String getKey() {
+        return "price";
+    }
+
     public Specification<Book> getSpecification(PriceParams params) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
