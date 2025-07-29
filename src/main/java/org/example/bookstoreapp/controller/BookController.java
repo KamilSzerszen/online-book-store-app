@@ -1,7 +1,6 @@
 package org.example.bookstoreapp.controller;
 
 import jakarta.validation.Valid;
-
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -62,11 +61,12 @@ public class BookController {
                                 @RequestParam(required = false) String[] author,
                                 @RequestParam(required = false) String[] isbn,
                                 @RequestParam(required = false) BigDecimal minPrice,
-                                @RequestParam(required = false) BigDecimal maxPrice) {
+                                @RequestParam(required = false) BigDecimal maxPrice,
+                                Pageable pageable) {
 
         BookSearchParametersDto params = new BookSearchParametersDto(
                 title, author, isbn, minPrice, maxPrice);
 
-        return bookService.search(params);
+        return bookService.search(params, pageable);
     }
 }
