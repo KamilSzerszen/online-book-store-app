@@ -1,5 +1,6 @@
 package org.example.bookstoreapp.repository.book.spec;
 
+import jakarta.persistence.criteria.Predicate;
 import java.util.Arrays;
 import org.example.bookstoreapp.model.Book;
 import org.example.bookstoreapp.repository.SpecificationProvider;
@@ -15,7 +16,12 @@ public class IsbnSpecificationProvider implements SpecificationProvider<Book, St
     }
 
     public Specification<Book> getSpecification(String[] params) {
-        return (root, query, criteriaBuilder)
-                -> root.get("isbn").in(Arrays.stream(params).toArray());
+        return (root, query, cb)
+                -> cb.or(
+                        Arrays.stream(params)
+                                .map(param -> cb.like(cb.lower(root.get("isbn")),
+                                        "%" + param + "%"))
+                                .toArray(Predicate[]::new)
+        );
     }
 }
