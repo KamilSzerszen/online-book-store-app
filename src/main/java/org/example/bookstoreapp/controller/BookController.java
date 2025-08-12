@@ -4,11 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.math.BigDecimal;
-import java.util.List;
+
 import lombok.RequiredArgsConstructor;
-import org.example.bookstoreapp.dto.BookDto;
-import org.example.bookstoreapp.dto.BookSearchParametersDto;
-import org.example.bookstoreapp.dto.CreateBookRequestDto;
+import org.example.bookstoreapp.dto.book.BookDto;
+import org.example.bookstoreapp.dto.book.BookSearchParametersDto;
+import org.example.bookstoreapp.dto.book.CreateBookRequestDto;
 import org.example.bookstoreapp.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

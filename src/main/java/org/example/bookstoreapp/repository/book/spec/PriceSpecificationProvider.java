@@ -3,7 +3,7 @@ package org.example.bookstoreapp.repository.book.spec;
 import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
-import org.example.bookstoreapp.dto.BookSearchParametersDto;
+import org.example.bookstoreapp.dto.book.BookSearchParametersDto;
 import org.example.bookstoreapp.model.Book;
 import org.example.bookstoreapp.repository.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;

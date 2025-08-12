@@ -1,10 +1,9 @@
 package org.example.bookstoreapp.service.impl;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.example.bookstoreapp.dto.BookDto;
-import org.example.bookstoreapp.dto.BookSearchParametersDto;
-import org.example.bookstoreapp.dto.CreateBookRequestDto;
+import org.example.bookstoreapp.dto.book.BookDto;
+import org.example.bookstoreapp.dto.book.BookSearchParametersDto;
+import org.example.bookstoreapp.dto.book.CreateBookRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.BookMapper;
 import org.example.bookstoreapp.model.Book;
