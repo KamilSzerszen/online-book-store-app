@@ -4,8 +4,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.example.bookstoreapp.validator.FieldMatch;
 
 @Data
+@FieldMatch(first = "password", second = "repeatPassword", message = "Password don't match")
 public class UserRegistrationRequestDto {
 
     @Email
