@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/changes/01-create-books-table.yaml
   - include:
       file: db/changelog/changes/02-add-isDeleted-column-in-books.yaml
+  - include:
+      file: db/changelog/changes/03-create-users-table.yaml

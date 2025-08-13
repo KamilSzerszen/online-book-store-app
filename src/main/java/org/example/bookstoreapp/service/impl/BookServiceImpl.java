@@ -1,19 +1,22 @@
 package org.example.bookstoreapp.service.impl;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.example.bookstoreapp.dto.BookDto;
-import org.example.bookstoreapp.dto.BookSearchParametersDto;
-import org.example.bookstoreapp.dto.CreateBookRequestDto;
+import org.example.bookstoreapp.dto.book.BookDto;
+import org.example.bookstoreapp.dto.book.BookSearchParametersDto;
+import org.example.bookstoreapp.dto.book.CreateBookRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.BookMapper;
 import org.example.bookstoreapp.model.Book;
 import org.example.bookstoreapp.repository.book.BookRepository;
 import org.example.bookstoreapp.repository.book.BookSpecificationBuilder;
 import org.example.bookstoreapp.service.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -24,10 +27,9 @@ public class BookServiceImpl implements BookService {
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
-    public List<BookDto> findAll(Pageable pageable) {
-        return bookRepository.findAll(pageable).stream()
-                .map(bookMapper::toDto)
-                .toList();
+    public Page<BookDto> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable)
+                .map(bookMapper::toDto);
     }
 
     @Override
@@ -65,12 +67,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> search(BookSearchParametersDto params, Pageable pageable) {
+    public Page<BookDto> search(BookSearchParametersDto params, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(params);
         return bookRepository.findAll(bookSpecification, pageable)
-                .stream()
-                .map(bookMapper::toDto)
-                .toList();
+                .map(bookMapper::toDto);
     }
 
 }
