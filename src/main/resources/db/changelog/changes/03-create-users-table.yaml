@@ -18,23 +18,24 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: password
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
-                  name: firstName
+                  name: first_name
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
-                  name: lastName
+                  name: last_name
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
-                  name: shippingAddress
+                  name: shipping_address
                   type: VARCHAR(255)
                   constraints:
                     nullable: true
@@ -43,4 +44,4 @@ databaseChangeLog:
                   type: BIT(1)
                   defaultValueBoolean: false
                   constraints:
-                    nullable: true
+                    nullable: false
