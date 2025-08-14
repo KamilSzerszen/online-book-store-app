@@ -83,6 +83,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return isDeleted;
+        return !isDeleted;
     }
 }
