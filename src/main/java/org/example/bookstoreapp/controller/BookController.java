@@ -14,6 +14,7 @@ import org.example.bookstoreapp.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,24 +34,28 @@ public class BookController {
 
     private final BookService bookService;
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     @Operation(summary = "Find all books", description = "Get a list of all available books")
     public Page<BookDto> getAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     @Operation(summary = "Find book by ID", description = "Find the book by unique ID")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @Operation(summary = "Add a new book", description = "Add a new book")
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto createBookRequestDto) {
         return bookService.createBook(createBookRequestDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete book", description = "Delete the book by ID if it exist")
@@ -58,6 +63,7 @@ public class BookController {
         bookService.deleteById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update book", description = "Save changes to an existing book")
     public BookDto updateBookById(
@@ -66,6 +72,7 @@ public class BookController {
         return bookService.updateBookById(createBookRequestDto, id);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/search")
     @Operation(summary = "Search", description = "Find a books based on the provided parameters" +
             "Example: /books?page=0&size=5&sort=title,asc")
