@@ -2,6 +2,7 @@ package org.example.bookstoreapp.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.book.BookDto;
+import org.example.bookstoreapp.dto.book.BookDtoWithoutCategoryIds;
 import org.example.bookstoreapp.dto.book.BookSearchParametersDto;
 import org.example.bookstoreapp.dto.book.CreateBookRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
@@ -71,6 +72,13 @@ public class BookServiceImpl implements BookService {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(params);
         return bookRepository.findAll(bookSpecification, pageable)
                 .map(bookMapper::toDto);
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id) {
+        return bookRepository.findAllByCategoryId(id).stream()
+                .map(bookMapper::toDtoWithoutCategories)
+                .toList();
     }
 
 }
