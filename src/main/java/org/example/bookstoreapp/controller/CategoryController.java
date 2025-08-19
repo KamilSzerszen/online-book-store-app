@@ -3,7 +3,6 @@ package org.example.bookstoreapp.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.book.BookDtoWithoutCategoryIds;
 import org.example.bookstoreapp.dto.category.CategoryRequestDto;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "Categories controller", description = "Endpoint for managing categories")
 @RequiredArgsConstructor
