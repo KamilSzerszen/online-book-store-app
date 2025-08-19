@@ -1,13 +1,10 @@
 package org.example.bookstoreapp.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
@@ -17,14 +14,16 @@ import java.util.List;
 public class JwtUtil {
 
     private Key secret;
+    private long expiration;
 
-    public JwtUtil(@Value("${jwt.secret}") String secretString) {
+    public JwtUtil(
+            @Value("${jwt.secret}") String secretString,
+            @Value("${jwt.expiration}") long expiration
+    ) {
         this.secret = Keys.hmacShaKeyFor(secretString.getBytes(StandardCharsets.UTF_8));
+        this.expiration = expiration;
     }
 
-
-    @Value("${jwt.expiration}")
-    private long expiration;
 
     public String generateToken(String username, List<String> roles) {
         return Jwts.builder()
@@ -37,22 +36,22 @@ public class JwtUtil {
     }
 
     public boolean isValidToken(String token) {
-
-        Jws<Claims> claimsJws = Jwts.parser()
-                .setSigningKey(secret)
-                .build()
-                .parseClaimsJws(token);
-
-        return !claimsJws.getBody().getExpiration().before(new Date());
+        return !getClaims(token)
+                .getExpiration()
+                .before(new Date());
 
     }
 
     public String getUserName(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
+        return getClaims(token)
                 .getSubject();
     }
+
+    private Claims getClaims(String token) {
+    return Jwts
+            .parser()
+            .setSigningKey(secret)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();}
 }

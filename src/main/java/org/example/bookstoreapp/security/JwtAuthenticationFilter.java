@@ -20,6 +20,10 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private final static String AUTHORIZATION_HEADER = "Authorization";
+    private final static String BEARER_PREFIX = "Bearer ";
+    private final static int INDEX_OF_BEARER_PREFIX = BEARER_PREFIX.length();
+
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
@@ -37,15 +41,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     userDetails, null, userDetails.getAuthorities()
             );
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         filterChain.doFilter(request, response);
     }
 
     private String getToken(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
-            return token.substring(7);
+        String token = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(token) && token.startsWith(BEARER_PREFIX)) {
+            return token.trim().substring(INDEX_OF_BEARER_PREFIX);
         }
         return null;
     }
