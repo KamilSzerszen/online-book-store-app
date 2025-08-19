@@ -10,6 +10,8 @@ import org.example.bookstoreapp.dto.category.CategoryRequestDto;
 import org.example.bookstoreapp.dto.category.CategoryResponseDto;
 import org.example.bookstoreapp.service.BookService;
 import org.example.bookstoreapp.service.CategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +36,8 @@ public class CategoryController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping
     @Operation(summary = "Get All", description = "Get all categories")
-    public List<CategoryResponseDto> getAllCategories() {
-        return categoryService.findAll();
+    public Page<CategoryResponseDto> getAllCategories(Pageable pageable) {
+        return categoryService.findAll(pageable);
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -68,8 +70,11 @@ public class CategoryController {
             summary = "Get books by category",
             description = "Get books by category with unique id"
     )
-    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(@PathVariable Long id) {
-        return bookService.getBooksByCategoryId(id);
+    public Page<BookDtoWithoutCategoryIds> getBooksByCategoryId(
+            @PathVariable Long id,
+            Pageable pageable
+    ) {
+        return bookService.getBooksByCategoryId(id, pageable);
     }
 
 }
