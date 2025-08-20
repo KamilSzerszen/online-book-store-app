@@ -1,4 +1,8 @@
 package org.example.bookstoreapp.dto.order;
 
-public record OrderPlaceRequestDto(String shippingAddress) {
+import lombok.Data;
+
+@Data
+public class OrderPlaceRequestDto {
+    private String shippingAddress;
 }
