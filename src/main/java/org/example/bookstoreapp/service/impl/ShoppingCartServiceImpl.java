@@ -18,6 +18,7 @@ import org.example.bookstoreapp.repository.shoppingCart.ShoppingCartRepository;
 import org.example.bookstoreapp.service.ShoppingCartService;
 import org.example.bookstoreapp.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -34,20 +35,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public ShoppingCartDto getShoppingCartByUser() {
         User currentUser = userService.getCurrentUser();
-        Optional<ShoppingCart> byUser = shoppingCartRepository.findByUser(currentUser);
-        return byUser
-                .map(shoppingCartMapper::toShoppingCartDto)
+        Long userId = currentUser.getId();
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUser(userId)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        "Shopping cart for user " + currentUser.getEmail() + " not found"
-                ));
+                        "Shopping cart for user: " + currentUser.getEmail() + "not found"));
+
+        shoppingCart.getCartItems().forEach(cartItem -> {
+            cartItem.getBook().getId();
+            cartItem.getBook().getTitle();
+        });
+
+        return shoppingCartMapper.toShoppingCartDto(shoppingCart);
     }
 
     @Override
     public CartItemDto addBooksToShoppingCart(CartItemRequestDto requestDto) {
         User currentUser = userService.getCurrentUser();
-        Optional<ShoppingCart> byUser = shoppingCartRepository.findByUser(currentUser);
+        Optional<ShoppingCart> byUser = shoppingCartRepository.findByUser(currentUser.getId());
         ShoppingCart shoppingCart = byUser.orElseGet(() -> {
             ShoppingCart newCart = new ShoppingCart();
             newCart.setUser(currentUser);
