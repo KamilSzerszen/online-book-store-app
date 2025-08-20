@@ -5,8 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.book.BookDtoWithoutCategoryIds;
-import org.example.bookstoreapp.dto.category.CategoryRequestDto;
-import org.example.bookstoreapp.dto.category.CategoryResponseDto;
+import org.example.bookstoreapp.dto.category.CategoryDto;
 import org.example.bookstoreapp.service.BookService;
 import org.example.bookstoreapp.service.CategoryService;
 import org.springframework.data.domain.Page;
@@ -26,30 +25,30 @@ public class CategoryController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @Operation(summary = "Create", description = "Create new category")
-    public CategoryResponseDto createCategory(@RequestBody @Valid CategoryRequestDto requestDto) {
+    public CategoryDto createCategory(@RequestBody @Valid CategoryDto requestDto) {
         return categoryService.save(requestDto);
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping
     @Operation(summary = "Get All", description = "Get all categories")
-    public Page<CategoryResponseDto> getAllCategories(Pageable pageable) {
+    public Page<CategoryDto> getAllCategories(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{id}")
     @Operation(summary = "Get by id", description = "Get category by unique id")
-    public CategoryResponseDto getCategoryById(@PathVariable Long id) {
+    public CategoryDto getCategoryById(@PathVariable Long id) {
         return categoryService.getById(id);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update", description = "Update category by unique id")
-    public CategoryResponseDto updateCategory(
+    public CategoryDto updateCategory(
             @PathVariable Long id,
-            @RequestBody @Valid CategoryRequestDto requestDto
+            @RequestBody @Valid CategoryDto requestDto
     ) {
         return categoryService.update(id, requestDto);
     }
