@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,12 +29,14 @@ public class BookServiceImpl implements BookService {
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<BookDto> findAll(Pageable pageable) {
         return bookRepository.findAll(pageable)
                 .map(bookMapper::toDto);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BookDto findById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Cannot find Book with id: " + id));
@@ -42,6 +45,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public BookDto createBook(CreateBookRequestDto createBookRequestDto) {
         Book book = bookMapper.toModel(createBookRequestDto);
         Book savedBook = bookRepository.save(book);
@@ -49,11 +53,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-        bookRepository.deleteById(id);
+        Book book = bookRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Cannot find Book with id: " + id)
+        );
+        bookRepository.delete(book);
     }
 
     @Override
+    @Transactional
     public BookDto updateBookById(CreateBookRequestDto createBookRequestDto, Long id) {
         Book bookBeforeUpdate = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cannot find Book with id: " + id));
@@ -68,6 +77,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<BookDto> search(BookSearchParametersDto params, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(params);
         return bookRepository.findAll(bookSpecification, pageable)
@@ -75,6 +85,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id, Pageable pageable) {
         return bookRepository.findAllByCategoryId(id, pageable)
                 .map(bookMapper::toDtoWithoutCategories);

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13-add-isDeleted-column-in-cart-item
+      author: kszerszen
+      changes:
+        - addColumn:
+            tableName: cart_item
+            columns:
+              - column:
+                  name: is_deleted
+                  type: BIT(1)
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
