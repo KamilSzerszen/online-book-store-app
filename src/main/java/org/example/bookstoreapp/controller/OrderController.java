@@ -2,13 +2,12 @@ package org.example.bookstoreapp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.order.OrderItemDto;
 import org.example.bookstoreapp.dto.order.OrderPlaceRequestDto;
 import org.example.bookstoreapp.dto.order.OrderResponseDto;
-import org.example.bookstoreapp.dto.order.OrderUpdateRequestDto;
+import org.example.bookstoreapp.dto.order.UpdateOrderStatusDto;
 import org.example.bookstoreapp.service.OrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,20 +39,20 @@ public class OrderController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping("/{id}")
+    @PatchMapping("/{orderId}")
     @Operation(summary = "Update status", description = "Update order status")
     public OrderResponseDto updateStatus(
-            @RequestBody @Valid OrderUpdateRequestDto requestDto,
-            @PathVariable Long id
+            @RequestBody @Valid UpdateOrderStatusDto requestDto,
+            @PathVariable Long orderId
     ) {
-        return orderService.updateStatus(requestDto, id);
+        return orderService.updateStatus(requestDto, orderId);
     }
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/{id}/items")
+    @GetMapping("/{orderId}/items")
     @Operation(summary = "Get orders items", description = "Get all items from orders")
-    public List<OrderItemDto> getOrderItems(@PathVariable Long id) {
-        return orderService.getOrderItems(id);
+    public List<OrderItemDto> getOrderItems(@PathVariable Long orderId) {
+        return orderService.getOrderItems(orderId);
     }
 
     @PreAuthorize("hasRole('USER')")

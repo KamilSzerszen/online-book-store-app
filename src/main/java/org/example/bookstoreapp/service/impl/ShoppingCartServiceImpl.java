@@ -36,10 +36,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     @Transactional(readOnly = true)
-    public ShoppingCartDto getShoppingCartByUser() {
+    public ShoppingCartDto getShoppingCartByUserId() {
         User currentUser = userService.getCurrentUser();
         Long userId = currentUser.getId();
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUser(userId)
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Shopping cart for user: " + currentUser.getEmail() + "not found"));
 
@@ -52,9 +52,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public CartItemDto addBooksToShoppingCart(CartItemRequestDto requestDto) {
+    @Transactional
+    public CartItemDto addItemToCart(CartItemRequestDto requestDto) {
         User currentUser = userService.getCurrentUser();
-        Optional<ShoppingCart> byUser = shoppingCartRepository.findByUser(currentUser.getId());
+        Optional<ShoppingCart> byUser = shoppingCartRepository.findByUserId(currentUser.getId());
         ShoppingCart shoppingCart = byUser.orElseGet(() -> {
             ShoppingCart newCart = new ShoppingCart();
             newCart.setUser(currentUser);
@@ -83,7 +84,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public CartItemDto update(Long id, CartItemUpdateRequestDto requestDto) {
+    @Transactional
+    public CartItemDto updateItemQuantity(Long id, CartItemUpdateRequestDto requestDto) {
         CartItem cartItem = cartItemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Cart item with id " + id + " not found"
@@ -95,7 +97,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void delete(Long id) {
+    @Transactional
+    public void deleteItemFromCart(Long id) {
+        cartItemRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Cart item with id " + id + " not found")
+        );
         cartItemRepository.deleteById(id);
     }
 }

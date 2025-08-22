@@ -1,11 +1,9 @@
 package org.example.bookstoreapp.dto.cartItem;
 
-import lombok.Data;
+public record CartItemDto(
+        Long id,
+        Long bookId,
+        String bookTitle,
+        int quantity) {
 
-@Data
-public class CartItemDto {
-    private Long id;
-    private Long bookId;
-    private String bookTitle;
-    private int quantity;
 }

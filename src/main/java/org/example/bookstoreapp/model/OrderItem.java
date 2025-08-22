@@ -2,12 +2,14 @@ package org.example.bookstoreapp.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+
 import java.math.BigDecimal;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "order_items")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderItem {

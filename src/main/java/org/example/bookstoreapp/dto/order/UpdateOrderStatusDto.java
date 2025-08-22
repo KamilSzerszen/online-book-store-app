@@ -5,7 +5,7 @@ import lombok.Data;
 import org.example.bookstoreapp.model.Status;
 
 @Data
-public class OrderUpdateRequestDto {
+public class UpdateOrderStatusDto {
 
     @NotNull
     private Status status;

@@ -24,14 +24,14 @@ public class ShoppingCartController {
     @GetMapping
     @Operation(summary = "Get shopping cart", description = "Get all products from shopping cart")
     public ShoppingCartDto getShoppingCart() {
-        return shoppingCartService.getShoppingCartByUser();
+        return shoppingCartService.getShoppingCartByUserId();
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping
     @Operation(summary = "Add book", description = "Add book to shopping cart")
     public CartItemDto addBooksToShoppingCart(@RequestBody @Valid CartItemRequestDto requestDto) {
-        return shoppingCartService.addBooksToShoppingCart(requestDto);
+        return shoppingCartService.addItemToCart(requestDto);
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -41,13 +41,13 @@ public class ShoppingCartController {
             @PathVariable Long id,
             @RequestBody CartItemUpdateRequestDto updateRequestDto
     ) {
-        return shoppingCartService.update(id, updateRequestDto);
+        return shoppingCartService.updateItemQuantity(id, updateRequestDto);
     }
 
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/cart-items/{id}")
     @Operation(summary = "Delete", description = "Delete books from shopping cart")
     public void deleteBooksFromShoppingCart(@PathVariable Long id) {
-        shoppingCartService.delete(id);
+        shoppingCartService.deleteItemFromCart(id);
     }
 }

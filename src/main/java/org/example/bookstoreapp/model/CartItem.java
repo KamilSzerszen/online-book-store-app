@@ -2,11 +2,12 @@ package org.example.bookstoreapp.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "cart_item")
 public class CartItem {
@@ -28,4 +29,7 @@ public class CartItem {
 
     @NotNull
     private int quantity;
+
+    @Column(nullable = false)
+    private boolean isDeleted = false;
 }
