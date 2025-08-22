@@ -62,10 +62,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             return shoppingCartRepository.save(newCart);
         });
 
-        Book book = bookRepository.findById(requestDto.getBookId())
+        Book book = bookRepository.findById(requestDto.bookId())
                 .orElseThrow(() ->
                         new EntityNotFoundException(
-                                "Book with id " + requestDto.getBookId() + " not found"
+                                "Book with id " + requestDto.bookId() + " not found"
                         ));
 
         CartItem cartItem = shoppingCart.getCartItems().stream()
@@ -78,7 +78,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 });
 
 
-        cartItem.setQuantity(cartItem.getQuantity() + requestDto.getQuantity());
+        cartItem.setQuantity(cartItem.getQuantity() + requestDto.quantity());
         CartItem saved = cartItemRepository.save(cartItem);
         return cartItemMapper.toDto(saved);
     }
