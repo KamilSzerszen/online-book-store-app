@@ -1,8 +1,7 @@
 package org.example.bookstoreapp.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.bookstoreapp.dto.category.CategoryRequestDto;
-import org.example.bookstoreapp.dto.category.CategoryResponseDto;
+import org.example.bookstoreapp.dto.category.CategoryDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.CategoryMapper;
 import org.example.bookstoreapp.model.Category;
@@ -11,10 +10,7 @@ import org.example.bookstoreapp.service.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,39 +20,48 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public Page<CategoryResponseDto> findAll(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<CategoryDto> findAll(Pageable pageable) {
         return categoryRepository.findAll(pageable)
                 .map(categoryMapper::toDto);
     }
 
     @Override
-    public CategoryResponseDto getById(long id) {
+    @Transactional(readOnly = true)
+    public CategoryDto getById(long id) {
         return categoryRepository.findById(id)
                 .map(category -> categoryMapper.toDto(category))
                 .orElseThrow(() -> new EntityNotFoundException("Category not found with id " + id));
     }
 
     @Override
-    public CategoryResponseDto save(CategoryRequestDto categoryRequestDto) {
-        Category model = categoryMapper.toModel(categoryRequestDto);
-        Category save = categoryRepository.save(model);
-        return categoryMapper.toDto(save);
+    @Transactional
+    public CategoryDto save(CategoryDto categoryDto) {
+        Category category = categoryMapper.toModel(categoryDto);
+        Category savedCategory = categoryRepository.save(category);
+        return categoryMapper.toDto(savedCategory);
     }
 
     @Override
-    public CategoryResponseDto update(Long id, CategoryRequestDto categoryRequestDto) {
+    @Transactional
+    public CategoryDto update(Long id, CategoryDto categoryDto) {
         Category category = categoryRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Category not found with id " + id));
 
-        category.setName(categoryRequestDto.getName());
-        category.setDescription(categoryRequestDto.getDescription());
-        Category save = categoryRepository.save(category);
+        category.setName(categoryDto.getName());
+        category.setDescription(categoryDto.getDescription());
+        Category savedCategory = categoryRepository.save(category);
 
-        return categoryMapper.toDto(save);
+        return categoryMapper.toDto(savedCategory);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        categoryRepository.deleteById(id);
+        Category category = categoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Category not found with id " + id)
+        );
+
+        categoryRepository.delete(category);
     }
 }
