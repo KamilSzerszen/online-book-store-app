@@ -1,0 +1,30 @@
+services:
+  mysql-db:
+    image: mysql:8.1
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: book_store_app
+    ports:
+      - "3307:3307"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  book-store-app:
+    build: .
+    container_name: book-store-app
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/book_store_app?serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      JWT_SECRET: jabfajbfjabfjsdnjnsmkcdxksutrioerrtf6ydfctf76e845rtfgy785gigsgdsgdcvcsdfcsecsefsedsxzcvsd
+      JWT_EXPIRATION: 30000000
+    depends_on:
+      mysql-db:
+        condition: service_healthy
