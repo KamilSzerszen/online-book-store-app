@@ -1,10 +1,9 @@
-package org.example.bookstoreapp.cotroller;
+package org.example.bookstoreapp.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.bookstoreapp.dto.book.BookDto;
 import org.example.bookstoreapp.dto.book.CreateBookRequestDto;
-import org.example.bookstoreapp.service.BookService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
