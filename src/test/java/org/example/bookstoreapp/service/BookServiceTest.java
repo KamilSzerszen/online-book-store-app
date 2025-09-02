@@ -6,6 +6,7 @@ import org.example.bookstoreapp.dto.book.CreateBookRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.BookMapper;
 import org.example.bookstoreapp.model.Book;
+import org.example.bookstoreapp.repository.SpecificationBuilder;
 import org.example.bookstoreapp.repository.book.BookRepository;
 import org.example.bookstoreapp.repository.book.BookSpecificationBuilder;
 import org.example.bookstoreapp.service.impl.BookServiceImpl;
@@ -37,7 +38,7 @@ public class BookServiceTest {
     private BookMapper bookMapper;
 
     @Mock
-    private BookSpecificationBuilder bookSpecificationBuilder;
+    private SpecificationBuilder<Book> bookSpecificationBuilder;
 
     @InjectMocks
     private BookServiceImpl bookService;
