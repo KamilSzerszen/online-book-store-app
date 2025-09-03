@@ -1,10 +1,11 @@
 package org.example.bookstoreapp.service.impl;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.example.bookstoreapp.dto.ShoppingCart.ShoppingCartDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemRequestDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemUpdateRequestDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemRequestDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemUpdateRequestDto;
+import org.example.bookstoreapp.dto.shoppingcart.ShoppingCartDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.CartItemMapper;
 import org.example.bookstoreapp.mapper.ShoppingCartMapper;
@@ -13,14 +14,12 @@ import org.example.bookstoreapp.model.CartItem;
 import org.example.bookstoreapp.model.ShoppingCart;
 import org.example.bookstoreapp.model.User;
 import org.example.bookstoreapp.repository.book.BookRepository;
-import org.example.bookstoreapp.repository.cartItem.CartItemRepository;
-import org.example.bookstoreapp.repository.shoppingCart.ShoppingCartRepository;
+import org.example.bookstoreapp.repository.cartitem.CartItemRepository;
+import org.example.bookstoreapp.repository.shoppingcart.ShoppingCartRepository;
 import org.example.bookstoreapp.service.ShoppingCartService;
 import org.example.bookstoreapp.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +31,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final CartItemRepository cartItemRepository;
     private final BookRepository bookRepository;
     private final CartItemMapper cartItemMapper;
-
 
     @Override
     @Transactional(readOnly = true)
@@ -76,7 +74,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                     newCart.setBook(book);
                     return newCart;
                 });
-
 
         cartItem.setQuantity(cartItem.getQuantity() + requestDto.quantity());
         CartItem saved = cartItemRepository.save(cartItem);

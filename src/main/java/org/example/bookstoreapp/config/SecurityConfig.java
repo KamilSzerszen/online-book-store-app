@@ -23,9 +23,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private static final int STRENGTH = 10;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService;
-    private static final int STRENGTH = 10;
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -49,8 +49,7 @@ public class SecurityConfig {
 
                 .addFilterBefore(
                         jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(Customizer.withDefaults());
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

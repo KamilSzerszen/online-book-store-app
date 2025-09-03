@@ -1,17 +1,15 @@
 package org.example.bookstoreapp.security;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.user.UserLoginRequestDto;
 import org.example.bookstoreapp.dto.user.UserLoginResponseDto;
 import org.example.bookstoreapp.repository.user.UserRepository;
-import org.example.bookstoreapp.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

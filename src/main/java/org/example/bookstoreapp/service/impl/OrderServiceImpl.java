@@ -1,5 +1,11 @@
 package org.example.bookstoreapp.service.impl;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.example.bookstoreapp.dto.order.OrderItemDto;
 import org.example.bookstoreapp.dto.order.OrderPlaceRequestDto;
@@ -16,20 +22,13 @@ import org.example.bookstoreapp.model.ShoppingCart;
 import org.example.bookstoreapp.model.Status;
 import org.example.bookstoreapp.model.User;
 import org.example.bookstoreapp.repository.order.OrderRepository;
-import org.example.bookstoreapp.repository.shoppingCart.ShoppingCartRepository;
+import org.example.bookstoreapp.repository.shoppingcart.ShoppingCartRepository;
 import org.example.bookstoreapp.service.OrderService;
 import org.example.bookstoreapp.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -130,8 +129,8 @@ public class OrderServiceImpl implements OrderService {
 
     private ShoppingCart getShoppingCart() {
         User currentUser = userService.getCurrentUser();
-        return shoppingCartRepository.findById(currentUser.getId()).
-                orElseThrow(() -> new EntityNotFoundException(
+        return shoppingCartRepository.findById(currentUser.getId())
+                        .orElseThrow(() -> new EntityNotFoundException(
                         "User" + currentUser.getEmail() + "not found"
                 ));
     }

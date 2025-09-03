@@ -1,9 +1,9 @@
 package org.example.bookstoreapp.service;
 
-import org.example.bookstoreapp.dto.ShoppingCart.ShoppingCartDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemRequestDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemUpdateRequestDto;
+import org.example.bookstoreapp.dto.shoppingcart.ShoppingCartDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemRequestDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemUpdateRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.CartItemMapper;
 import org.example.bookstoreapp.mapper.ShoppingCartMapper;
@@ -12,8 +12,8 @@ import org.example.bookstoreapp.model.CartItem;
 import org.example.bookstoreapp.model.ShoppingCart;
 import org.example.bookstoreapp.model.User;
 import org.example.bookstoreapp.repository.book.BookRepository;
-import org.example.bookstoreapp.repository.cartItem.CartItemRepository;
-import org.example.bookstoreapp.repository.shoppingCart.ShoppingCartRepository;
+import org.example.bookstoreapp.repository.cartitem.CartItemRepository;
+import org.example.bookstoreapp.repository.shoppingcart.ShoppingCartRepository;
 import org.example.bookstoreapp.service.impl.ShoppingCartServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

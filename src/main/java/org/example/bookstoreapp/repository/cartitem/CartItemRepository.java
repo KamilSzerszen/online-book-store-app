@@ -1,4 +1,4 @@
-package org.example.bookstoreapp.repository.cartItem;
+package org.example.bookstoreapp.repository.cartitem;
 
 import org.example.bookstoreapp.model.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;

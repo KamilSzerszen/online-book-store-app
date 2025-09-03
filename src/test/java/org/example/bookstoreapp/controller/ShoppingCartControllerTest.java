@@ -1,10 +1,10 @@
 package org.example.bookstoreapp.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.bookstoreapp.dto.ShoppingCart.ShoppingCartDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemRequestDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemUpdateRequestDto;
+import org.example.bookstoreapp.dto.shoppingcart.ShoppingCartDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemRequestDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemUpdateRequestDto;
 import org.example.bookstoreapp.model.ShoppingCart;
 import org.example.bookstoreapp.model.User;
 import org.example.bookstoreapp.service.ShoppingCartService;

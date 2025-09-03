@@ -72,8 +72,8 @@ public class BookController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/search")
-    @Operation(summary = "Search", description = "Find a books based on the provided parameters" +
-            "Example: /books?page=0&size=5&sort=title,asc")
+    @Operation(summary = "Search", description = "Find a books based on the provided parameters"
+            + "Example: /books?page=0&size=5&sort=title,asc")
     public Page<BookDto> search(@RequestParam(required = false) String[] title,
                                 @RequestParam(required = false) String[] author,
                                 @RequestParam(required = false) String[] isbn,

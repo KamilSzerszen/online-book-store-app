@@ -1,9 +1,9 @@
-package org.example.bookstoreapp.dto.ShoppingCart;
+package org.example.bookstoreapp.dto.shoppingcart;
 
-import lombok.Data;
-import org.example.bookstoreapp.dto.cartItem.CartItemDto;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Data;
+import org.example.bookstoreapp.dto.cartitem.CartItemDto;
 
 @Data
 public class ShoppingCartDto {

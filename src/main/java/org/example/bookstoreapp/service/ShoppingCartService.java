@@ -1,9 +1,9 @@
 package org.example.bookstoreapp.service;
 
-import org.example.bookstoreapp.dto.ShoppingCart.ShoppingCartDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemRequestDto;
-import org.example.bookstoreapp.dto.cartItem.CartItemUpdateRequestDto;
+import org.example.bookstoreapp.dto.shoppingcart.ShoppingCartDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemRequestDto;
+import org.example.bookstoreapp.dto.cartitem.CartItemUpdateRequestDto;
 
 public interface ShoppingCartService {
 
