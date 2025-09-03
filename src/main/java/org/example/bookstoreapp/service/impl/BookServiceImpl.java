@@ -8,6 +8,7 @@ import org.example.bookstoreapp.dto.book.CreateBookRequestDto;
 import org.example.bookstoreapp.exception.EntityNotFoundException;
 import org.example.bookstoreapp.mapper.BookMapper;
 import org.example.bookstoreapp.model.Book;
+import org.example.bookstoreapp.repository.SpecificationBuilder;
 import org.example.bookstoreapp.repository.book.BookRepository;
 import org.example.bookstoreapp.repository.book.BookSpecificationBuilder;
 import org.example.bookstoreapp.service.BookService;
@@ -26,7 +27,7 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    private final BookSpecificationBuilder bookSpecificationBuilder;
+    private final SpecificationBuilder<Book> bookSpecificationBuilder;
 
     @Override
     @Transactional(readOnly = true)
