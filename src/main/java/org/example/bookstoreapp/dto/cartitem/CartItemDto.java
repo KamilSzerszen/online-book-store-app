@@ -1,4 +1,4 @@
-package org.example.bookstoreapp.dto.cartItem;
+package org.example.bookstoreapp.dto.cartitem;
 
 public record CartItemDto(
         Long id,

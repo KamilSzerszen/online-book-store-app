@@ -1,14 +1,14 @@
 package org.example.bookstoreapp.security;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Date;
+import java.util.List;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class JwtUtil {
@@ -23,7 +23,6 @@ public class JwtUtil {
         this.secret = Keys.hmacShaKeyFor(secretString.getBytes(StandardCharsets.UTF_8));
         this.expiration = expiration;
     }
-
 
     public String generateToken(String username, List<String> roles) {
         return Jwts.builder()
@@ -48,10 +47,11 @@ public class JwtUtil {
     }
 
     private Claims getClaims(String token) {
-    return Jwts
-            .parser()
-            .setSigningKey(secret)
-            .build()
-            .parseClaimsJws(token)
-            .getBody();}
+        return Jwts
+                .parser()
+                .setSigningKey(secret)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
 }

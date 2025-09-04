@@ -1,61 +1,85 @@
 # 📚 Online Book Store App
 
-A **Spring Boot** application for managing an online bookstore with **JWT authentication** and a **MySQL database**.  
+
+A **Spring Boot** application for managing an online bookstore with **JWT authentication** and a **MySQL database**.
 
 ---
 
 ## 🗂 Table of Contents
-- [About the Project](#-about-the-project)  
-- [Technologies](#-technologies)  
-- [Getting Started](#-getting-started)  
-  - [Prerequisites](#-prerequisites)  
-  - [Environment Configuration](#-environment-configuration)  
-  - [Database Setup](#-database-setup)  
-  - [Running with Docker](#-running-with-docker)  
-  - [Running Locally](#-running-locally)  
-- [Swagger UI](#-swagger-ui)  
-- [Liquibase](#-liquibase)  
-- [Contributing](#-contributing)  
-- [License](#-license)  
+
+- [About the Project](#-about-the-project)
+- [Technologies](#-technologies)
+- [Obstacles / Learning](#-obstacles--learning)
+- [Getting Started](#-getting-started)
+    - [Prerequisites](#-prerequisites)
+    - [Environment Configuration](#-environment-configuration)
+    - [Database Setup](#-database-setup)
+    - [Running with Docker](#-running-with-docker)
+    - [Running Locally](#-running-locally)
+- [Swagger UI](#-swagger-ui)
+- [Liquibase](#-liquibase)
+- [Controllers & Their Functions](#-controllers--their-functions)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
 ## ℹ️ About the Project
 
-This is a **demo project** of an online bookstore built with **Spring Boot**.  
+This is a **demo project** of an online bookstore built with **Spring Boot**.
 
-**Features:**  
-- 🔒 **Spring Security** with JWT authentication  
-- 🌐 **REST API**  
-- 🗄 **MySQL database** integration  
-- 🔄 **Database migrations** using Liquibase  
-- 📖 **API documentation** with Swagger/OpenAPI  
+The project was created as **my first portfolio project** to demonstrate my skills in **backend development, REST API design, and Spring Boot ecosystem**.  
+It helps to solve common challenges in building an online bookstore such as secure user authentication, managing books, categories, orders, and shopping cart functionality.
+
+**Features:**
+- 🔒 **Spring Security** with JWT authentication
+- 🌐 **REST API**
+- 🗄 **MySQL database** integration
+- 🔄 **Database migrations** using Liquibase
+- 📖 **API documentation** with Swagger/OpenAPI
 
 ---
 
 ## 🛠 Technologies
 
-- **Java 17**  
-- **Spring Boot**  
-- **Spring Security**  
-- **Spring Data JPA**  
-- **MySQL**  
-- **Liquibase**  
-- **Docker**  
-- **Swagger/OpenAPI**  
+- **Java 17**
+- **Spring Boot**
+- **Spring Security**
+- **Spring Data JPA**
+- **MySQL**
+- **Liquibase**
+- **Docker**
+- **Swagger/OpenAPI**
+
+---
+
+## 🧗 Obstacles / Learning
+
+During development, I encountered and solved several common backend challenges:
+
+- **JWT filter order** – Ensuring authentication filters were processed correctly to protect endpoints.
+- **Soft delete** – Implementing non-destructive deletion of books and categories.
+- **Liquibase seeding** – Pre-populating the database with roles and sample data during migrations.
+- **CORS configuration** – Allowing frontend applications to access API securely.
+- **N+1 problem** – Optimizing database queries to prevent performance issues when fetching collections.
+- **API design** – Organizing endpoints logically for a clean and maintainable REST API.
+
+These challenges allowed me to **deepen my understanding of Spring Boot, JPA/Hibernate, and backend best practices**.
 
 ---
 
 ## 🚀 Getting Started
 
 ### 🧩 Prerequisites
-- **Docker** and **Docker Compose**  
-- **Java 17**  
-- **MySQL** (optional if using Docker)  
+
+- **Docker** and **Docker Compose**
+- **Java 17**
+- **MySQL** (optional if using Docker)
 
 ### ⚙️ Environment Configuration
 
-The **`.env`** file is located in the project root. Fill it with your **local configuration** before running the application.  
+The **`.env`** file is located in the project root. Fill it with your **local configuration** before running the application.
+
 
 Example `.env`:
 
@@ -74,61 +98,66 @@ JWT_SECRET=your-secret-key
 JWT_EXPIRATION=30000000
 ```
 > Each developer should **adapt values** to their local setup.  
-> The project does **not include any pre-configured passwords** or credentials.  
-
+> The project does **not include any pre-configured passwords** or credentials.
 
 
 ## 🗄 Database Setup
 
-If using **Docker**, the database will be created automatically.  
 
-Before calling any API endpoints (except `/auth/register` and `/auth/login`), manually assign **roles** to users in the `users_roles` table.  
+If using **Docker**, the database will be created automatically.
 
-**Roles:**  
-- 1 → ROLE_USER  
-- 2 → ROLE_ADMIN  
+Before calling any API endpoints (except `/auth/register` and `/auth/login`), manually assign **roles** to users in the `users_roles` table.
 
-**Example SQL:**  
+**Roles:**
+- 1 → ROLE_USER
+- 2 → ROLE_ADMIN
+
+**Example SQL:**
+
 ```sql
 -- Assign ROLE_USER to user with ID 1
 INSERT INTO users_roles(user_id, role_id) VALUES (1, 1);
 
 -- Assign ROLE_ADMIN to user with ID 2
 INSERT INTO users_roles(user_id, role_id) VALUES (2, 2);
+```
+
 > This is required for users to access **protected endpoints** after registration or login.
 
-```
 
 ## 🐳 Running with Docker
 
 ```bash
 docker-compose up --build
 ```
-- Application runs at: [http://localhost:8081](http://localhost:8081)  
-- MySQL container runs on port 3306 (or as configured in `docker-compose.yml`)  
+
+- Application runs at: [http://localhost:8081](http://localhost:8081)
+- MySQL container runs on port 3306 (or as configured in `docker-compose.yml`)
 
 ⚠️ Default ports in `docker-compose.yml`:
-- **MySQL:** 3307:3306 (host:container)  
-- **Application:** 8081:8080 (host:container)  
+- **MySQL:** 3307:3306 (host:container)
+- **Application:** 8081:8080 (host:container)
 
 > Change these if they conflict with existing services.
 
 ## 💻 Running Locally
 
-Make sure **MySQL** is running and `.env` is configured.  
+Make sure **MySQL** is running and `.env` is configured.
 
 ```bash
 ./mvnw clean package
 java -jar target/bookstore-0.0.1-SNAPSHOT.jar
+
 ```
 ## 📑 Swagger UI
 
-Available at: [http://localhost:8081/api/swagger-ui.html](http://localhost:8081/api/swagger-ui.html)  
+Available at: [http://localhost:8081/api/swagger-ui.html](http://localhost:8081/api/swagger-ui.html)
 
-To use **protected endpoints**, click **Authorize** and enter your **JWT token**.  
+To use **protected endpoints**, click **Authorize** and enter your **JWT token**.
 
 ⚠️ Swagger automatically adds the `Bearer` prefix, so only the token is required.  
-In other setups, you may need:  
+In other setups, you may need:
+
 
 Bearer <YOUR_TOKEN>
 
@@ -137,15 +166,30 @@ Bearer <YOUR_TOKEN>
 
 ## 🔄 Liquibase
 
-Database migrations are managed using **Liquibase**.  
 
-- Change log files: `classpath:db/changelog/db.changelog-master.yaml`  
+Database migrations are managed using **Liquibase**.
+
+- Change log files: `classpath:db/changelog/db.changelog-master.yaml`
 - Migrations run **automatically** on application startup.
+
+## 🗂 Controllers & Their Functions
+
+| Controller | Functionality |
+|------------|---------------|
+| **AuthController** | Handles user registration, login, JWT token generation, and authentication. |
+| **BookController** | CRUD operations for books (view, add, update, delete). Accessible to admin for full operations, users can view books. |
+| **CategoryController** | Manage book categories (create, read, update, delete). Admin-only endpoints for management. |
+| **CartController** | Manage shopping cart: add/remove books, view cart, calculate totals. Accessible to authenticated users. |
+| **OrderController** | Manage orders: place orders, view order history, track order status. Accessible to authenticated users. |
+| **AdminController** | Admin-only endpoints for managing users, roles, and system-wide settings. |
+
+---
 
 ## 🤝 Contributing
 
-1. **Fork** the repository  
-2. Make changes in a **separate branch**  
+1. **Fork** the repository
+2. Make changes in a **separate branch**
+
 3. Create a **Pull Request**
 
 ## 📝 License

@@ -1,12 +1,11 @@
-package org.example.bookstoreapp.repository.shoppingCart;
+package org.example.bookstoreapp.repository.shoppingcart;
 
 import jakarta.validation.constraints.NotNull;
+import java.util.Optional;
 import org.example.bookstoreapp.model.ShoppingCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import java.util.Optional;
 
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
 

@@ -1,7 +1,7 @@
 package org.example.bookstoreapp.mapper;
 
 import org.example.bookstoreapp.config.MapperConfig;
-import org.example.bookstoreapp.dto.ShoppingCart.ShoppingCartDto;
+import org.example.bookstoreapp.dto.shoppingcart.ShoppingCartDto;
 import org.example.bookstoreapp.model.ShoppingCart;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

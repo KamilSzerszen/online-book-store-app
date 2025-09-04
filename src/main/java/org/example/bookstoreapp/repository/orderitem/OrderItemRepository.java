@@ -1,4 +1,4 @@
-package org.example.bookstoreapp.repository.orderItem;
+package org.example.bookstoreapp.repository.orderitem;
 
 import org.example.bookstoreapp.model.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,7 @@
 package org.example.bookstoreapp.repository;
 
 import org.example.bookstoreapp.model.ShoppingCart;
-import org.example.bookstoreapp.model.User;
-import org.example.bookstoreapp.repository.shoppingCart.ShoppingCartRepository;
+import org.example.bookstoreapp.repository.shoppingcart.ShoppingCartRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

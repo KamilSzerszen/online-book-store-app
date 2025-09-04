@@ -2,9 +2,7 @@ package org.example.bookstoreapp.dto.book;
 
 import java.math.BigDecimal;
 import java.util.Set;
-
 import lombok.Data;
-import org.example.bookstoreapp.model.Category;
 
 @Data
 public class BookDto {

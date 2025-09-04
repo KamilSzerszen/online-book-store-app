@@ -10,16 +10,12 @@ import org.example.bookstoreapp.mapper.BookMapper;
 import org.example.bookstoreapp.model.Book;
 import org.example.bookstoreapp.repository.SpecificationBuilder;
 import org.example.bookstoreapp.repository.book.BookRepository;
-import org.example.bookstoreapp.repository.book.BookSpecificationBuilder;
 import org.example.bookstoreapp.service.BookService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
