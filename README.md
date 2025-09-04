@@ -1,10 +1,12 @@
 # 📚 Online Book Store App
 
+
 A **Spring Boot** application for managing an online bookstore with **JWT authentication** and a **MySQL database**.
 
 ---
 
 ## 🗂 Table of Contents
+
 - [About the Project](#-about-the-project)
 - [Technologies](#-technologies)
 - [Obstacles / Learning](#-obstacles--learning)
@@ -69,6 +71,7 @@ These challenges allowed me to **deepen my understanding of Spring Boot, JPA/Hib
 ## 🚀 Getting Started
 
 ### 🧩 Prerequisites
+
 - **Docker** and **Docker Compose**
 - **Java 17**
 - **MySQL** (optional if using Docker)
@@ -76,6 +79,7 @@ These challenges allowed me to **deepen my understanding of Spring Boot, JPA/Hib
 ### ⚙️ Environment Configuration
 
 The **`.env`** file is located in the project root. Fill it with your **local configuration** before running the application.
+
 
 Example `.env`:
 
@@ -97,8 +101,8 @@ JWT_EXPIRATION=30000000
 > The project does **not include any pre-configured passwords** or credentials.
 
 
-
 ## 🗄 Database Setup
+
 
 If using **Docker**, the database will be created automatically.
 
@@ -109,6 +113,7 @@ Before calling any API endpoints (except `/auth/register` and `/auth/login`), ma
 - 2 → ROLE_ADMIN
 
 **Example SQL:**
+
 ```sql
 -- Assign ROLE_USER to user with ID 1
 INSERT INTO users_roles(user_id, role_id) VALUES (1, 1);
@@ -119,11 +124,13 @@ INSERT INTO users_roles(user_id, role_id) VALUES (2, 2);
 
 > This is required for users to access **protected endpoints** after registration or login.
 
+
 ## 🐳 Running with Docker
 
 ```bash
 docker-compose up --build
 ```
+
 - Application runs at: [http://localhost:8081](http://localhost:8081)
 - MySQL container runs on port 3306 (or as configured in `docker-compose.yml`)
 
@@ -140,6 +147,7 @@ Make sure **MySQL** is running and `.env` is configured.
 ```bash
 ./mvnw clean package
 java -jar target/bookstore-0.0.1-SNAPSHOT.jar
+
 ```
 ## 📑 Swagger UI
 
@@ -150,12 +158,14 @@ To use **protected endpoints**, click **Authorize** and enter your **JWT token**
 ⚠️ Swagger automatically adds the `Bearer` prefix, so only the token is required.  
 In other setups, you may need:
 
+
 Bearer <YOUR_TOKEN>
 
 
 > Copy the token in a **single line** without spaces or line breaks.
 
 ## 🔄 Liquibase
+
 
 Database migrations are managed using **Liquibase**.
 
@@ -179,6 +189,7 @@ Database migrations are managed using **Liquibase**.
 
 1. **Fork** the repository
 2. Make changes in a **separate branch**
+
 3. Create a **Pull Request**
 
 ## 📝 License
